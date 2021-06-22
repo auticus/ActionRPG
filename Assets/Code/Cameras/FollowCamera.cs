@@ -1,20 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class FollowCamera : MonoBehaviour
+namespace RPG.Cameras
 {
-    [SerializeField] private GameObject FollowTarget;
-
-    // Start is called before the first frame update
-    void Start()
+    public class FollowCamera : MonoBehaviour
     {
-        
-    }
+        [SerializeField] private GameObject FollowTarget; //the player or whatever the camera is going to follow
 
-    // Update is called once per frame
-    void LateUpdate()
-    {
-        transform.position = FollowTarget.transform.position;
+        // Update is called once per frame
+        void LateUpdate()
+        {
+            //placed the LateUpdate code so that the animations can run in update BEFORE we move the camera to prevent jittering
+            transform.position = FollowTarget.transform.position;
+        }
     }
 }

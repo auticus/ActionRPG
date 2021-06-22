@@ -1,49 +1,62 @@
+using RPG.Combat;
+using RPG.Controllers;
+using RPG.Interfaces;
+using UnityEditor.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Movement : MonoBehaviour
+namespace RPG.Character
 {
-    private NavMeshAgent _navMeshAgent;
-    private Ray _targetRay;
-
-    // Start is called before the first frame update
-    void Start()
+    public class Movement : MonoBehaviour, IAction
     {
-        _navMeshAgent = GetComponent<NavMeshAgent>();
-    }
+        private NavMeshAgent _navMeshAgent;
+        private Ray _targetRay;
+        private Scheduler _scheduler;
+        private Animator _animator;
 
-    // Update is called once per frame
-    void Update()
-    {
-        HandleInput();
-        UpdateAnimator();
-    }
-
-    private void HandleInput()
-    {
-        if (Input.GetMouseButton(0))
+        // Start is called before the first frame update
+        void Start()
         {
-            MoveToClickPoint();
+            _navMeshAgent = GetComponent<NavMeshAgent>();
+            _scheduler = GetComponent<Scheduler>();
+            _animator = GetComponent<Animator>();
         }
-    }
 
-    private void MoveToClickPoint()
-    {
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        var hasHit = Physics.Raycast(ray, out var hit);
-        if (hasHit) 
-            _navMeshAgent.destination = hit.point;
-    }
+        // Update is called once per frame
+        void Update()
+        {
+            UpdateAnimator();
+        }
 
-    private void UpdateAnimator()
-    {
-        var velocity = GetComponent<NavMeshAgent>().velocity;
-        var localVelocity = transform.InverseTransformDirection(velocity); //transforms a world and turning into local space
-        //when creating velocity we are storing here we are grabbing the global velocity and it may be X = 273 and Y = 7
-        //thats not useful for the animator.  Animator just wants to know local velocity to say to animator you are moving forward at 3 units etc
-        //global values are not as useful from local point of view
+        public void StartMoveAction(Vector3 destination)
+        {
+            GetComponent<Fighter>().Cancel();
+            MoveTo(destination);
+        }
 
-        var speed = localVelocity.z; //need to know the zed speed in a forward direction
-        GetComponent<Animator>().SetFloat("ForwardSpeed", speed); //ForwardSpeed is set on the animator Blend Tree
+        public void MoveTo(Vector3 point)
+        {
+            //_scheduler.StartAction(this);
+            _navMeshAgent.destination = point;
+            _navMeshAgent.isStopped = false;
+        }
+
+        public void Cancel()
+        {
+            _navMeshAgent.isStopped = true;
+        }
+
+        private void UpdateAnimator()
+        {
+            var velocity = _navMeshAgent.velocity;
+            var localVelocity =
+                transform.InverseTransformDirection(velocity); //transforms a world and turning into local space
+            //when creating velocity we are storing here we are grabbing the global velocity and it may be X = 273 and Y = 7
+            //thats not useful for the animator.  Animator just wants to know local velocity to say to animator you are moving forward at 3 units etc
+            //global values are not as useful from local point of view
+
+            var speed = localVelocity.z; //need to know the zed speed in a forward direction
+            _animator.SetFloat("ForwardSpeed", speed); //ForwardSpeed is set on the animator Blend Tree
+        }
     }
 }
