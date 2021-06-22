@@ -1,21 +1,18 @@
-﻿using RPG.Character;
-using RPG.Combat;
+﻿using RPG.Combat;
 using UnityEngine;
 
 namespace RPG.Controllers
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : EntityController
     {
-        private Movement _movement;
-        private Fighter _fighter;
-
-        private void Start()
+        void Start()
         {
-            _movement = GetComponent<Movement>();
-            _fighter = GetComponent<Fighter>();
+            Initialize();
         }
+
         private void Update()
         {
+            if (HandleDeath()) return;
             if (Combat()) return;
             if (Movement()) return;
         }
@@ -28,7 +25,7 @@ namespace RPG.Controllers
             {
                 if (Input.GetMouseButton(0))
                 {
-                    _movement.StartMoveAction(hit.point);
+                    movement.StartMoveAction(hit.point);
                 }
 
                 return true;
@@ -48,16 +45,19 @@ namespace RPG.Controllers
             foreach (var hit in hits)
             {
                 var target = hit.transform.GetComponent<Target>();
-                if (target == null) continue;
+                if (target == null)
+                {
+                    continue;
+                }
 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    if (!_fighter.IsValidTarget(target))
+                    if (!fighter.IsValidTarget(target))
                     {
                         continue;
                     }
                     
-                    _fighter.Attack(target);
+                    fighter.Attack(target);
                 }
                 return true;
             }

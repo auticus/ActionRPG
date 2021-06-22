@@ -14,6 +14,8 @@ namespace RPG.Character
         private Scheduler _scheduler;
         private Animator _animator;
 
+        public float StopRadius => _navMeshAgent.stoppingDistance;
+        
         // Start is called before the first frame update
         void Start()
         {

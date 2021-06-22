@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace RPG.Combat
+namespace RPG.Character
 {
-    class Health : MonoBehaviour
+    public class Health : MonoBehaviour
     {
         public float health = 100f;
 
@@ -21,6 +16,7 @@ namespace RPG.Combat
             if (IsDead) return;  //if he's already dead... dont need to keep damaging him
 
             health -= dmg;
+
             if (health < 0) health = 0;
 
             if (health == 0) Die();
@@ -34,7 +30,6 @@ namespace RPG.Combat
 
         private void Die()
         {
-            Debug.Log("I have killed someone");
             _animator.SetTrigger("Die");
             IsDead = true;
             _collider.enabled = false;

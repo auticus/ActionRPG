@@ -18,5 +18,12 @@ namespace RPG.Controllers
             _currentAction?.Cancel();
             _currentAction = action;
         }
+
+        public void CancelCurrentAction()
+        {
+            if (_currentAction == null) return;
+            _currentAction.Cancel();
+            _currentAction = null;
+        }
     }
 }

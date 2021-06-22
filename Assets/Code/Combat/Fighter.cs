@@ -1,8 +1,6 @@
 using RPG.Character;
 using RPG.Controllers;
 using RPG.Interfaces;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace RPG.Combat
@@ -17,8 +15,8 @@ namespace RPG.Combat
         private Movement _movement;
         private Scheduler _scheduler;
         private Animator _animator;
-        private float _timeSinceLastAttack = 0;
-        
+        private float _timeSinceLastAttack = Mathf.Infinity; //infinity so that its been infinity since our last attack
+
         void Start()
         {
             _movement = GetComponent<Movement>();
@@ -88,7 +86,6 @@ namespace RPG.Combat
             _animator.ResetTrigger("StopAttack");
             _animator.SetTrigger("DoAttack");
             _timeSinceLastAttack = 0;
-            Debug.Log("Maim!!");
         }
 
         private void TurnToFaceTarget()
