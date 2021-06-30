@@ -9,12 +9,19 @@ namespace RPG.Character
 {
     public class Movement : MonoBehaviour, IAction
     {
+        public enum MovementState
+        {
+            Stopped,
+            Default,
+            Pursuit
+        }
+
         private NavMeshAgent _navMeshAgent;
         private Ray _targetRay;
         private Scheduler _scheduler;
         private Animator _animator;
-
-        public float StopRadius => _navMeshAgent.stoppingDistance;
+        [SerializeField] private float defaultSpeed;
+        [SerializeField] private float pursuitSpeed;
         
         // Start is called before the first frame update
         void Start()
@@ -41,6 +48,17 @@ namespace RPG.Character
             //_scheduler.StartAction(this);
             _navMeshAgent.destination = point;
             _navMeshAgent.isStopped = false;
+        }
+
+        public void ChangeMovementState(MovementState state)
+        {
+            _navMeshAgent.speed = state switch
+            {
+                MovementState.Stopped => 0,
+                MovementState.Default => defaultSpeed,
+                MovementState.Pursuit => pursuitSpeed,
+                _ => _navMeshAgent.speed
+            };
         }
 
         public void Cancel()

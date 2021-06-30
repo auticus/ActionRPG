@@ -1,4 +1,5 @@
-﻿using RPG.Combat;
+﻿using RPG.Character;
+using RPG.Combat;
 using UnityEditor.UIElements;
 using UnityEngine;
 
@@ -24,7 +25,8 @@ namespace RPG.Controllers
         {
             Initialize();
             _playerTarget = GameObject.FindWithTag("Player").GetComponent<Target>();
-            _currentDestination = patrolPath.GetCurrentWaypoint();
+
+            _currentDestination = patrolPath != null ? patrolPath.GetCurrentWaypoint() : transform.position;
         }
 
         void Update()
@@ -60,6 +62,7 @@ namespace RPG.Controllers
         
         private void PursueAndAttackPlayer()
         {
+            movement.ChangeMovementState(Movement.MovementState.Pursuit);
             transform.LookAt(_playerTarget.transform);
             fighter.Attack(_playerTarget);
         }
@@ -67,6 +70,9 @@ namespace RPG.Controllers
         private void DefaultBehavior()
         {
             var distance = Vector3.Distance(transform.position, _currentDestination);
+            movement.ChangeMovementState(Movement.MovementState.Default);
+            if (patrolPath == null) return;
+
             //are we near the stop radius of our next destination?  if so lets go to our next waypoint
             if ( distance <= 1)
             {

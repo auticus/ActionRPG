@@ -1,6 +1,7 @@
 using RPG.Character;
 using RPG.Controllers;
 using RPG.Interfaces;
+using UnityEditor;
 using UnityEngine;
 
 namespace RPG.Combat
@@ -54,6 +55,7 @@ namespace RPG.Combat
             _animator.ResetTrigger("DoAttack");
             _animator.SetTrigger("StopAttack");
             _target = null;
+            GetComponent<Movement>().Cancel(); //if you fail to cancel here then canceling fighting does not cancel it moving to fight if it was already doing so!
         }
 
         public bool IsValidTarget(Target target)
