@@ -77,7 +77,6 @@ namespace RPG.Controllers
             if ( distance <= 1)
             {
                 _currentDestination = patrolPath.GetNextWaypoint();
-                Debug.Log($"changing destination to {_currentDestination}");
                 _currentWaitTime = 0f;
                 return;
             }
