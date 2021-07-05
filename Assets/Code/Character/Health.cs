@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using RPG.Saving;
+using UnityEngine;
 
 namespace RPG.Character
 {
-    public class Health : MonoBehaviour
+    public class Health : MonoBehaviour, ISaveable
     {
         public float health = 100f;
 
@@ -20,6 +21,19 @@ namespace RPG.Character
             if (health < 0) health = 0;
 
             if (health == 0) Die();
+        }
+
+        public object CaptureState()
+        {
+            return health;
+        }
+
+        public void RestoreState(object state)
+        {
+            health = (float) state;
+
+            if (health == 0)
+                Die();
         }
 
         void Start()

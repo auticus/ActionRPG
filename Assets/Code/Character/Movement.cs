@@ -1,13 +1,14 @@
 using RPG.Combat;
 using RPG.Controllers;
 using RPG.Interfaces;
+using RPG.Saving;
 using UnityEditor.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace RPG.Character
 {
-    public class Movement : MonoBehaviour, IAction
+    public class Movement : MonoBehaviour, IAction, ISaveable
     {
         public enum MovementState
         {
@@ -64,6 +65,24 @@ namespace RPG.Character
         public void Cancel()
         {
             _navMeshAgent.isStopped = true;
+        }
+
+        public object CaptureState()
+        {
+            return new SerializableVector3(transform.position);
+        }
+
+        public void RestoreState(object state)
+        {
+            SetNavMeshAgent();
+            _navMeshAgent.enabled = false; //stops navmeshagent from meddling with what we are doing
+            transform.position = ((SerializableVector3) state).ToVector();
+            _navMeshAgent.enabled = true;
+        }
+
+        private void SetNavMeshAgent()
+        {
+            _navMeshAgent = GetComponent<NavMeshAgent>();
         }
 
         private void UpdateAnimator()

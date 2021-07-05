@@ -43,11 +43,20 @@ namespace RPG.SceneManagement
 
             yield return fader.FadeOut(fadeOutTime);
 
+            //save the current level
+            var wrapper = FindObjectOfType<SavingWrapper>();
+            wrapper.Save();
+
             //SceneManager.LoadScene(sceneToLoad);
             yield return SceneManager.LoadSceneAsync(sceneToLoad); //run this up until its loaded, when finished loading we will continue
 
+            //load current level
+            wrapper.Load();
+
             var otherPortal = GetOtherPortal();
             UpdatePlayer(otherPortal);
+
+            wrapper.Save();
 
             yield return new WaitForSeconds(fadeWaitTime);
             yield return fader.FadeIn(fadeInTime);
@@ -59,11 +68,12 @@ namespace RPG.SceneManagement
         {
             //you can have a problem with nav mesh agent jacking things up - so tell the navmesh agent where to warp to to prevent this
             var player =GameObject.FindWithTag("Player");
-            //player.GetComponent<NavMeshAgent>().enabled = false;
+
+            player.GetComponent<NavMeshAgent>().enabled = false;
             player.GetComponent<NavMeshAgent>().Warp(otherPortal.spawnPoint.position);
             //player.transform.position = otherPortal.spawnPoint.position;
             player.transform.rotation = otherPortal.spawnPoint.rotation;
-            //player.GetComponent<NavMeshAgent>().enabled = true;
+            player.GetComponent<NavMeshAgent>().enabled = true;
         }
 
         private Portal GetOtherPortal()

@@ -12,6 +12,11 @@ namespace RPG.SceneManagement
             _canvasGroup = GetComponent<CanvasGroup>();
         }
 
+        public void FadeOutImmediate()
+        {
+            _canvasGroup.alpha = 1;
+        }
+
         public IEnumerator FadeOutIn()
         {
             yield return FadeOut(3f);
