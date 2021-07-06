@@ -28,5 +28,7 @@ namespace RPG.Combat
         {
             _health.Damage(dmg);
         }
+
+        public Health GetHealth() => _health;
     }
 }
