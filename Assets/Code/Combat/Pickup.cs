@@ -8,6 +8,7 @@ namespace RPG.Combat
 
         private void OnTriggerEnter(Collider other)
         {
+            Debug.Log("Pick me up!!");
             if (other.gameObject.tag != "Player") return;
             var player = other.GetComponent<Fighter>();
             player.EquipWeapon(weapon);
