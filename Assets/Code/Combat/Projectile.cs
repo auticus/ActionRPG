@@ -4,13 +4,21 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private float speed = 10.0f;
+    [SerializeField] private bool isHoming = false;
+
     private Health _target = null;
     private float _damage = 0f;
+
+    private void Start()
+    {
+        if (_target == null) return;
+        transform.LookAt(GetAimLocation()); //when this spawns have it point at the target, but after that it flies in a straight direction
+    }
 
     private void Update()
     {
         if (_target == null) return;
-        transform.LookAt(GetAimLocation());
+        if (isHoming && !_target.IsDead) transform.LookAt(GetAimLocation()); //only home in if the health is not dead
         transform.Translate(Vector3.forward * (speed * Time.deltaTime));
     }
 
@@ -24,6 +32,9 @@ public class Projectile : MonoBehaviour
     {
         var health = other.gameObject.GetComponent<Health>();
         if (health == null || health != _target) return;
+
+        if (health.IsDead) return; //if he's dead just keep on flying
+
         health.Damage(_damage);
         Destroy(gameObject);
     }

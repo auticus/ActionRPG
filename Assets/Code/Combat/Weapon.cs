@@ -13,10 +13,18 @@ namespace RPG.Combat
         [SerializeField] private float Damage = 5f;
         [SerializeField] private bool rightHanded = true;
         [SerializeField] private Projectile projectile = null;  //if it has none, its not a projectile
+
+        private const string WEAPON_NAME = "Weapon";
         
         public void Spawn(Transform rightHand, Transform leftHand, Animator animator)
         {
-            if (weapon != null) Instantiate(weapon, GetHand(rightHand, leftHand));
+            DestroyOldWeapon(rightHand, leftHand);
+
+            if (weapon != null)
+            {
+                var wpn = Instantiate(weapon, GetHand(rightHand, leftHand));
+                wpn.name = WEAPON_NAME;
+            }
             if (animationOverride != null) animator.runtimeAnimatorController = animationOverride;
         }
 
@@ -32,5 +40,19 @@ namespace RPG.Combat
         public float GetDamage() => Damage;
 
         private Transform GetHand(Transform rHand, Transform lHand) => rightHanded ? rHand : lHand;
+
+        private void DestroyOldWeapon(Transform rHand, Transform lHand)
+        {
+            var old = rHand.Find(WEAPON_NAME);
+            if (old == null)
+            {
+                old = lHand.Find(WEAPON_NAME);
+            }
+
+            if (old == null) return;
+
+            old.name = "KILL ME BILLY"; //frames can cause confusion here so lets change the name so nothing else can search for it, then destroy it
+            Destroy(old.gameObject);
+        }
     }
 }
