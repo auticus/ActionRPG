@@ -25,7 +25,18 @@ namespace RPG.Combat
                 var wpn = Instantiate(weapon, GetHand(rightHand, leftHand));
                 wpn.name = WEAPON_NAME;
             }
-            if (animationOverride != null) animator.runtimeAnimatorController = animationOverride;
+
+            //there can be a bug where if the animator controller is null it will cause the character to use the controller of the previously used weapon
+            var overrideControl = animator.runtimeAnimatorController as AnimatorOverrideController;
+            if (animationOverride != null)
+            {
+                animator.runtimeAnimatorController = animationOverride;
+            }
+            else if (overrideControl != null)
+            {
+                //if already 
+                animator.runtimeAnimatorController = overrideControl.runtimeAnimatorController;
+            }
         }
 
         public bool IsRangedWeapon() => projectile != null;

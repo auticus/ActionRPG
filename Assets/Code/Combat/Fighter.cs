@@ -1,18 +1,18 @@
 using RPG.Character;
 using RPG.Controllers;
 using RPG.Interfaces;
-using UnityEditor;
+using RPG.Saving;
 using UnityEngine;
 
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour, IAction
+    public class Fighter : MonoBehaviour, IAction, ISaveable
     {
         [SerializeField] private Transform rightHandTransform = null;
         [SerializeField] private Transform leftHandTransform = null;
         [SerializeField] private Weapon defaultWeapon = null;
         [SerializeField] private float timeBetweenAttacks = 1f;
-
+        
         private Target _target;
         private Movement _movement;
         private Scheduler _scheduler;
@@ -25,7 +25,8 @@ namespace RPG.Combat
             _movement = GetComponent<Movement>();
             _scheduler = GetComponent<Scheduler>();
             _animator = GetComponent<Animator>();
-            EquipWeapon(defaultWeapon);
+            
+            if (_currentWeapon == null) EquipWeapon(defaultWeapon); //otherwise saving system already did its job and we do nothing
         }
 
         void Update()
@@ -71,6 +72,17 @@ namespace RPG.Combat
             _currentWeapon = weapon;
             var animator = GetComponent<Animator>();
             weapon.Spawn(rightHandTransform, leftHandTransform, animator);
+        }
+
+        public object CaptureState()
+        {
+            return _currentWeapon.name;
+        }
+
+        public void RestoreState(object state)
+        {
+            var wpn = Resources.Load<Weapon>(state.ToString());
+            EquipWeapon(wpn);
         }
 
         private bool IsInRange()
