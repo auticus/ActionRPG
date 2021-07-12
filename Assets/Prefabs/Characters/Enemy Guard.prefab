@@ -14,6 +14,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &-8460989175179967949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8586035732938204809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ea9374b509b70f4bba37e4a2ca8cf00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueIdentifier: 
 --- !u!114 &-6118965621746999306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26,7 +39,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbd6485e1b67415f900faae239477e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 20
 --- !u!114 &4942187560967038064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,6 +141,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -3192684539754554867, guid: 470199a52ed6a63478e6cd231137c784, type: 3}
+      propertyPath: progession
+      value: 
+      objectReference: {fileID: 11400000, guid: e9d6f5ab9feb5c04f943180508a28815, type: 2}
+    - target: {fileID: -3192684539754554867, guid: 470199a52ed6a63478e6cd231137c784, type: 3}
+      propertyPath: progression
+      value: 
+      objectReference: {fileID: 11400000, guid: e9d6f5ab9feb5c04f943180508a28815, type: 2}
+    - target: {fileID: -3192684539754554867, guid: 470199a52ed6a63478e6cd231137c784, type: 3}
+      propertyPath: characterClass
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 174753340, guid: 470199a52ed6a63478e6cd231137c784, type: 3}
       propertyPath: defaultSpeed
       value: 3
@@ -147,7 +171,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 985579287507351488, guid: 470199a52ed6a63478e6cd231137c784, type: 3}
       propertyPath: m_Name
-      value: Enemy
+      value: Enemy Guard
       objectReference: {fileID: 0}
     - target: {fileID: 1544870369434179969, guid: 470199a52ed6a63478e6cd231137c784, type: 3}
       propertyPath: weapon

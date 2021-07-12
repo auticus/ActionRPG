@@ -13,7 +13,8 @@ namespace RPG.Combat
             if (other.gameObject.tag != "Player") return;
             var player = other.GetComponent<Fighter>();
             player.EquipWeapon(weapon);
-            //Destroy(gameObject);
+            
+            //Destroy(gameObject);  //we are no longer destroying we want to respawn it
             StartCoroutine(HideForSeconds(respawnTime));
         }
 

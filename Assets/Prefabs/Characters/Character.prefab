@@ -15,7 +15,9 @@ GameObject:
   - component: {fileID: 174753340}
   - component: {fileID: 1544870369434179969}
   - component: {fileID: 7788508938116065077}
+  - component: {fileID: -3192684539754554867}
   - component: {fileID: 7581585140725120788}
+  - component: {fileID: 1222619363555115851}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -146,7 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87643247dfeb4614cbf429c4761176ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handTransform: {fileID: 0}
+  rightHandTransform: {fileID: 0}
+  leftHandTransform: {fileID: 0}
   defaultWeapon: {fileID: 0}
   timeBetweenAttacks: 1
 --- !u!114 &7788508938116065077
@@ -161,6 +164,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c74f9f76fbcfa05448bdfd7af582559b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-3192684539754554867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 985579287507351488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2176d48bb994bb38715854a9d122610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingLevel: 1
+  characterClass: 0
+  progression: {fileID: 0}
+  baseDamage: -1
 --- !u!54 &7581585140725120788
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -177,3 +196,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1222619363555115851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 985579287507351488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32fc6a1a4e584adba2b0cdd624e9f7ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  experience: 0
+  levelUpFx: {fileID: 0}

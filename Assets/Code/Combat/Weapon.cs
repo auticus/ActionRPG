@@ -10,13 +10,14 @@ namespace RPG.Combat
         [SerializeField] private AnimatorOverrideController animationOverride = null;
         
         [SerializeField] private float Range = 2f;
-        [SerializeField] private float Damage = 5f;
+        [SerializeField] private int Damage = 5;
+        [SerializeField] private float PercentageModifier = 0f;
         [SerializeField] private bool rightHanded = true;
         [SerializeField] private Projectile projectile = null;  //if it has none, its not a projectile
 
         private const string WEAPON_NAME = "Weapon";
         
-        public void Spawn(Transform rightHand, Transform leftHand, Animator animator)
+        public void Spawn(Transform rightHand, Transform leftHand, Animator animator, BaseStats stats)
         {
             DestroyOldWeapon(rightHand, leftHand);
 
@@ -41,14 +42,15 @@ namespace RPG.Combat
 
         public bool IsRangedWeapon() => projectile != null;
 
-        public void FireProjectile(Transform rHand, Transform lHand, Health target)
+        public void FireProjectile(Transform rHand, Transform lHand, Target target, int damage)
         {
             var rangedProjectile = Instantiate(projectile, GetHand(rHand, lHand).position, Quaternion.identity);
-            rangedProjectile.SetTarget(target, Damage);
+            rangedProjectile.SetTarget(target, damage: damage);
         }
 
         public float GetRange() => Range;
-        public float GetDamage() => Damage;
+        public int GetDamage() => Damage;
+        public float GetPercentageModifier() => PercentageModifier;
 
         private Transform GetHand(Transform rHand, Transform lHand) => rightHanded ? rHand : lHand;
 

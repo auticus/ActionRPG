@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-3344291990334302473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8418167882234481381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ea9374b509b70f4bba37e4a2ca8cf00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueIdentifier: 
 --- !u!1001 &285113347838831724
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55,6 +68,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2971126100635175748, guid: 989c25429f2b10941814f56a9109098c, type: 3}
+      propertyPath: progession
+      value: 
+      objectReference: {fileID: 11400000, guid: 3711460958b38bb4ba6209b51bccaa6e, type: 2}
+    - target: {fileID: 2971126100635175748, guid: 989c25429f2b10941814f56a9109098c, type: 3}
+      propertyPath: progression
+      value: 
+      objectReference: {fileID: 11400000, guid: 3711460958b38bb4ba6209b51bccaa6e, type: 2}
+    - target: {fileID: 2971126100635175748, guid: 989c25429f2b10941814f56a9109098c, type: 3}
+      propertyPath: characterClass
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4942187560967038064, guid: 989c25429f2b10941814f56a9109098c, type: 3}
       propertyPath: chaseDistance
       value: 10
@@ -73,3 +98,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 989c25429f2b10941814f56a9109098c, type: 3}
+--- !u!1 &8418167882234481381 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8586035732938204809, guid: 989c25429f2b10941814f56a9109098c, type: 3}
+  m_PrefabInstance: {fileID: 285113347838831724}
+  m_PrefabAsset: {fileID: 0}
