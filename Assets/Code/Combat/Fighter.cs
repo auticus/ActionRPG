@@ -60,6 +60,15 @@ namespace RPG.Combat
 
         public void Attack(Target target)
         {
+            if (_target != null)
+            {
+                if (_target.TargetID == target.TargetID) return; //if we're hitting the same target we already have assigned... we dont need to do any more
+                
+                //if we were holding on to an onDeath from someone else (or even the same target) remove it now or else you will be racking up a ton of xp 
+                //since it will just hold those subscribers 
+                _target.onDeath -= HandleDeath;
+            }
+
             _scheduler.StartAction(this);
             _target = target;
             _target.onDeath += HandleDeath;

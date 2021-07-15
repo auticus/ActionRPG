@@ -55,6 +55,15 @@ namespace RPG.Character
             return $"{Math.Floor(percent)}%";
         }
 
+        /// <summary>
+        /// Displays the health in a current/max health format
+        /// </summary>
+        /// <returns></returns>
+        public string ToDisplayLong()
+        {
+            return $"{_health} / {_maxHealth}";
+        }
+
         public IEnumerable<int> GetAdditiveModifiers(BaseStats.Stat stat)
         {
             return Enumerable.Empty<int>();

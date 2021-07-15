@@ -17,7 +17,7 @@ namespace RPG.UI.Resources
 
         private void Update()
         {
-            _healthLabel.text = $"Health: {_health.ToPercent()}";
+            _healthLabel.text = $"Health: {_health.ToDisplayLong()}";
         }
     }
 }

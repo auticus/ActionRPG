@@ -89,6 +89,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 806fc7d0b2d1e7444b6ae938ff5a3fdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cursorMappings:
+  - cursorType: 0
+    texture: {fileID: 2800000, guid: 223adfc11bf0c08479699fa2acfe0ed7, type: 3}
+    hotspot: {x: 0, y: 0}
+  - cursorType: 1
+    texture: {fileID: 2800000, guid: e78434d3c7d798e4b81e601206e47031, type: 3}
+    hotspot: {x: 0, y: 0}
+  - cursorType: 2
+    texture: {fileID: 2800000, guid: ef46b4e1c7adef44f8270bece551d994, type: 3}
+    hotspot: {x: 0, y: 0}
+  - cursorType: 3
+    texture: {fileID: 2800000, guid: 223adfc11bf0c08479699fa2acfe0ed7, type: 3}
+    hotspot: {x: 0, y: 0}
+  navMeshRange: 1
+  maxNavPathLength: 40
 --- !u!1001 &3999962951183222401
 PrefabInstance:
   m_ObjectHideFlags: 0

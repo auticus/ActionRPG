@@ -1,11 +1,13 @@
 ﻿using System;
 using RPG.Character;
+using RPG.Controllers;
+using RPG.UI;
 using UnityEngine;
 
 namespace RPG.Combat
 {
     [RequireComponent(typeof(Health))]
-    public class Target : MonoBehaviour
+    public class Target : MonoBehaviour, IRaycastable
     {
         public enum TargetStatus
         {
@@ -17,6 +19,7 @@ namespace RPG.Combat
         public bool IsPlayer => _isPlayer;
 
         public EventHandler onDeath;
+        public Guid TargetID = Guid.NewGuid();
 
         private Health _health;
         private BaseStats _stats;
@@ -42,5 +45,25 @@ namespace RPG.Combat
 
         public Health GetHealth() => _health;
         public int GetXp() => _stats.GetBaselineExperience();
+
+        public bool HandleRaycast(PlayerController controller)
+        {
+            if (!controller.GetComponent<Fighter>().IsValidTarget(this))
+            {
+                return false;
+            }
+
+            if (Input.GetMouseButton(0))
+            {
+                controller.GetComponent<Fighter>().Attack(this);
+            }
+
+            return true;
+        }
+
+        public CursorType GetCursorType()
+        {
+            return CursorType.Combat;
+        }
     }
 }

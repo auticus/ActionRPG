@@ -1,9 +1,11 @@
 using System.Collections;
+using RPG.Controllers;
+using RPG.UI;
 using UnityEngine;
 
 namespace RPG.Combat
 {
-    public class Pickup : MonoBehaviour
+    public class Pickup : MonoBehaviour, IRaycastable
     {
         [SerializeField] private Weapon weapon = null;
         [SerializeField] private float respawnTime = 5.0f;
@@ -11,9 +13,13 @@ namespace RPG.Combat
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.tag != "Player") return;
-            var player = other.GetComponent<Fighter>();
+            PickItUp(other.GetComponent<Fighter>());
+        }
+
+        private void PickItUp(Fighter player)
+        {
             player.EquipWeapon(weapon);
-            
+
             //Destroy(gameObject);  //we are no longer destroying we want to respawn it
             StartCoroutine(HideForSeconds(respawnTime));
         }
@@ -47,6 +53,21 @@ namespace RPG.Combat
             {
                 child.gameObject.SetActive(active);
             }
+        }
+
+        public bool HandleRaycast(PlayerController controller)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                PickItUp(controller.GetComponent<Fighter>());
+            }
+
+            return true;
+        }
+
+        public CursorType GetCursorType()
+        {
+            return CursorType.ItemPickup;
         }
     }
 }
