@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using RPG.Saving;
+using RPG.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace RPG.Character
 {
@@ -14,12 +16,26 @@ namespace RPG.Character
         private float _maxHealth;
         private BaseStats _baseStats;
         private Experience _experience;
+        private DamageTextSpawner _dmgTextSpawner = null;
+        
+        private const string DAMAGE_TEXT_SPAWNER_NAME = "Damage Text Spawner";
+        private const string HEALTH_BAR_NAME = "Health Bar";
+        
 
         public bool IsDead { get; private set; }
 
         void Start()
         {
             Initialize();
+
+            foreach (Transform child in transform)
+            {
+                if (_dmgTextSpawner == null && child.name == DAMAGE_TEXT_SPAWNER_NAME)
+                {
+                    _dmgTextSpawner = child.GetComponent<DamageTextSpawner>();
+                    break;
+                }
+            }
         }
 
         public void Damage(int dmg)
@@ -29,6 +45,7 @@ namespace RPG.Character
             _health -= dmg;
 
             if (_health < 0) _health = 0;
+            DisplayDamage(dmg);
 
             if (_health == 0) Die();
         }
@@ -49,12 +66,6 @@ namespace RPG.Character
                 Die();
         }
 
-        public string ToPercent()
-        {
-            double percent = _health / _maxHealth * 100;
-            return $"{Math.Floor(percent)}%";
-        }
-
         /// <summary>
         /// Displays the health in a current/max health format
         /// </summary>
@@ -63,6 +74,8 @@ namespace RPG.Character
         {
             return $"{_health} / {_maxHealth}";
         }
+
+        public float ToPercent() => _health / _maxHealth;
 
         public IEnumerable<int> GetAdditiveModifiers(BaseStats.Stat stat)
         {
@@ -107,6 +120,14 @@ namespace RPG.Character
             _animator.SetTrigger("Die");
             IsDead = true;
             _collider.enabled = false;
+        }
+
+        private void DisplayDamage(int dmg)
+        {
+            //all characters have a Damage Text Spawner gameobject childed
+            //this has a DamageTextSpawner script
+
+            _dmgTextSpawner.Spawn((float)dmg);
         }
     }
 }

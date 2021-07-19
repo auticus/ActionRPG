@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Assets.Code.Combat;
+using RPG.Combat;
 using RPG.Character;
 using RPG.Controllers;
 using RPG.Interfaces;
@@ -22,7 +22,6 @@ namespace RPG.Combat
         private Animator _animator;
         private float _timeSinceLastAttack = Mathf.Infinity; //infinity so that its been infinity since our last attack
         private Weapon _currentWeapon = null;
-        private EnemyHealthDisplay _enemyHealthDisplay = null;
         private BaseStats _stats = null;
         private Experience _experience = null;
 
@@ -32,7 +31,6 @@ namespace RPG.Combat
             _scheduler = GetComponent<Scheduler>();
             _animator = GetComponent<Animator>();
 
-            _enemyHealthDisplay = GetComponent<EnemyHealthDisplay>();
             _stats = GetComponent<BaseStats>();
             _experience = GetComponent<Experience>();
 
@@ -72,11 +70,6 @@ namespace RPG.Combat
             _scheduler.StartAction(this);
             _target = target;
             _target.onDeath += HandleDeath;
-
-            if (gameObject.CompareTag("Player"))
-            {
-                _enemyHealthDisplay.SetTarget(target.GetHealth());
-            }
         }
 
         public void Cancel()
@@ -84,11 +77,6 @@ namespace RPG.Combat
             _animator.ResetTrigger("DoAttack");
             _animator.SetTrigger("StopAttack");
             _target = null;
-
-            if (gameObject.CompareTag("Player"))
-            {
-                _enemyHealthDisplay.SetTarget(null);
-            }
             GetComponent<Movement>().Cancel(); //if you fail to cancel here then canceling fighting does not cancel it moving to fight if it was already doing so!
         }
 
