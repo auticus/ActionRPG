@@ -1,4 +1,5 @@
 ﻿using System;
+using RPG.Audio;
 using RPG.Character;
 using RPG.Controllers;
 using RPG.UI;
@@ -26,15 +27,21 @@ namespace RPG.Combat
         private bool _isPlayer;
         private bool _diedEventFired = false;
 
+        private SoundFx _soundFx;
+
         void Start()
         {
             _health = GetComponent<Health>();
             _stats = GetComponent<BaseStats>();
+            _soundFx = GetComponent<SoundFx>();
             _isPlayer = this.CompareTag("Player");
         }
 
-        public void Hit(int dmg)
+        public void Hit(int dmg, HitSource hitSource)
         {
+            var hitSound = GetSoundSource(hitSource);
+            _soundFx.Play(hitSound);
+
             _health.Damage(dmg);
             if (_health.IsDead && !_diedEventFired)
             {
@@ -64,6 +71,21 @@ namespace RPG.Combat
         public CursorType GetCursorType()
         {
             return CursorType.Combat;
+        }
+
+        private SoundFx.SoundSource GetSoundSource(HitSource hitSource)
+        {
+            switch (hitSource)
+            {
+                case HitSource.Sword:
+                    return SoundFx.SoundSource.MeleeHit;
+                case HitSource.Bow:
+                    return SoundFx.SoundSource.RangedHit;
+                case HitSource.Fireball:
+                    return SoundFx.SoundSource.FireballHit;
+            }
+
+            return SoundFx.SoundSource.MeleeHit;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using RPG.Audio;
 using RPG.Saving;
 using RPG.UI;
 using UnityEngine;
@@ -20,7 +21,8 @@ namespace RPG.Character
         
         private const string DAMAGE_TEXT_SPAWNER_NAME = "Damage Text Spawner";
         private const string HEALTH_BAR_NAME = "Health Bar";
-        
+
+        private SoundFx _soundFx;
 
         public bool IsDead { get; private set; }
 
@@ -46,6 +48,7 @@ namespace RPG.Character
 
             if (_health < 0) _health = 0;
             DisplayDamage(dmg);
+            PlayDamageSound();
 
             if (_health == 0) Die();
         }
@@ -97,6 +100,8 @@ namespace RPG.Character
                 _baseStats = GetComponent<BaseStats>();
                 _experience = GetComponent<Experience>();
                 _experience.OnLevelUp += OnLevelUp;
+
+                _soundFx = GetComponent<SoundFx>();
             }
 
             if (_health < 0) //its the -1 default which is not valid so get its base health
@@ -117,6 +122,7 @@ namespace RPG.Character
 
         private void Die()
         {
+            _soundFx.Play(SoundFx.SoundSource.Die);
             _animator.SetTrigger("Die");
             IsDead = true;
             _collider.enabled = false;
@@ -128,6 +134,11 @@ namespace RPG.Character
             //this has a DamageTextSpawner script
 
             _dmgTextSpawner.Spawn((float)dmg);
+        }
+
+        private void PlayDamageSound()
+        {
+            _soundFx.Play(SoundFx.SoundSource.TakeDamage);
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine.Playables;
 
 namespace RPG.Cinematics
 {
-    public class CinematicsControlRemoval : MonoBehaviour
+    public class CinematicControl : MonoBehaviour
     {
         private GameObject _player;
         void Start()
@@ -16,13 +16,12 @@ namespace RPG.Cinematics
 
         void DisableControl(PlayableDirector director)
         {
-            _player.GetComponent<Scheduler>().CancelCurrentAction();
-            _player.GetComponent<PlayerController>().enabled = false;
+            _player.GetComponent<PlayerControlState>().SetEnabled(false);
         }
 
         void EnableControl(PlayableDirector director)
         {
-            _player.GetComponent<PlayerController>().enabled = true;
+            _player.GetComponent<PlayerControlState>().SetEnabled(true);
         }
     }
 }

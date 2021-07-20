@@ -24,6 +24,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: bfbe2e8b331e2cc42be1591f949c0e41, type: 2}
+    - target: {fileID: 761774012865696478, guid: 989c25429f2b10941814f56a9109098c, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: cc33d42442263404f9c18723ddf25ef7, type: 3}
     - target: {fileID: 810690406364731659, guid: 989c25429f2b10941814f56a9109098c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -80,6 +84,10 @@ PrefabInstance:
       propertyPath: characterClass
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2992486523950004139, guid: 989c25429f2b10941814f56a9109098c, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 3298d4d468badd044b2ca8930315e21d, type: 3}
     - target: {fileID: 4942187560967038064, guid: 989c25429f2b10941814f56a9109098c, type: 3}
       propertyPath: chaseDistance
       value: 10

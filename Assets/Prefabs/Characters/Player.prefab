@@ -51,6 +51,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb7563dfd3c3ac445960fd84c038d212, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2596792227065270344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4192783355590504769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50c552b6e0664d91aaa0696940e8872b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3146489074468453888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,10 +175,26 @@ PrefabInstance:
       propertyPath: rightHandTransform
       value: 
       objectReference: {fileID: 7080399765189205331}
+    - target: {fileID: 1682297896520632015, guid: 470199a52ed6a63478e6cd231137c784, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2732650504180134224, guid: 470199a52ed6a63478e6cd231137c784, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4928474749275434711, guid: 470199a52ed6a63478e6cd231137c784, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5984636853932975842, guid: 470199a52ed6a63478e6cd231137c784, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 2ebf38d5081e6024eb5214ce611bd747, type: 3}
+    - target: {fileID: 8077377783945741207, guid: 470199a52ed6a63478e6cd231137c784, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4e8b59d4eaa0d654cbc76c62d2549dd1, type: 3}
     - target: {fileID: 8199620612237543490, guid: 470199a52ed6a63478e6cd231137c784, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -210,6 +238,14 @@ PrefabInstance:
     - target: {fileID: 8199620612237543490, guid: 470199a52ed6a63478e6cd231137c784, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8260122700892410684, guid: 470199a52ed6a63478e6cd231137c784, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8899486003032809587, guid: 470199a52ed6a63478e6cd231137c784, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 470199a52ed6a63478e6cd231137c784, type: 3}

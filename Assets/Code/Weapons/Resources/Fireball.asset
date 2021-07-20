@@ -16,5 +16,7 @@ MonoBehaviour:
   animationOverride: {fileID: 22100000, guid: f5aa75c7ab39c314385f843339f9bf84, type: 2}
   Range: 15
   Damage: 5
+  PercentageModifier: 0
   rightHanded: 0
   projectile: {fileID: 4028208680291174595, guid: 9c0475077849bac4487536d41b8422f8, type: 3}
+  hitSource: 2

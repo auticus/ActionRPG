@@ -9,6 +9,8 @@ namespace RPG.Combat
         [SerializeField] private bool isHoming = false;
         [SerializeField] private GameObject hitEffect = null;
         [SerializeField] private float maxLifeTime = 10.0f;
+        
+        private HitSource _hitSource;
 
         [SerializeField]
         private GameObject[] destroyOnHit = null; //the gameobjects we chain through to destroy when we hit
@@ -33,10 +35,11 @@ namespace RPG.Combat
             transform.Translate(Vector3.forward * (speed * Time.deltaTime));
         }
 
-        public void SetTarget(Target target, int damage)
+        public void SetTarget(Target target, int damage, HitSource hitSource)
         {
             _target = target;
             _damage = damage;
+            _hitSource = hitSource;
 
             Destroy(gameObject, maxLifeTime);
         }
@@ -48,7 +51,7 @@ namespace RPG.Combat
 
             if (target.GetHealth().IsDead) return; //if he's dead just keep on flying
 
-            target.Hit(_damage);
+            target.Hit(_damage, _hitSource);
 
             speed = 0; //we hit, there is no more speed
 

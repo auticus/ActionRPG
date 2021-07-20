@@ -18,48 +18,31 @@ namespace RPG.SceneManagement
             _canvasGroup.alpha = 1;
         }
 
-        public IEnumerator FadeOutIn()
+        public Coroutine FadeOut(float time)
         {
-            yield return FadeOut(3f);
-            yield return FadeIn(1f);
+            return FadeTo(1, time);
         }
 
-        public IEnumerator FadeOut(float time)
+        public Coroutine FadeIn(float time)
         {
-            //cancel any running coroutines
-            //run the fadeout coroutine
-            if (_currentlyActiveFade != null)
-            {
-                StopCoroutine(_currentlyActiveFade);
-            }
-            _currentlyActiveFade = StartCoroutine(FadeOutRoutine(time));
-            yield return _currentlyActiveFade;
+            return FadeTo(0, time);
         }
 
-        public IEnumerator FadeIn(float time)
+        private Coroutine FadeTo(float target, float time)
         {
             if (_currentlyActiveFade != null)
             {
                 StopCoroutine(_currentlyActiveFade);
             }
-            _currentlyActiveFade = StartCoroutine(FadeInRoutine(time));
-            yield return _currentlyActiveFade;
+            _currentlyActiveFade = StartCoroutine(Fade(target,time));
+            return _currentlyActiveFade;
         }
 
-        private IEnumerator FadeOutRoutine(float time)
+        private IEnumerator Fade(float target, float time)
         {
-            while (_canvasGroup.alpha < 1)
+            while (!Mathf.Approximately(_canvasGroup.alpha, target))
             {
-                _canvasGroup.alpha += Time.deltaTime / time;
-                yield return null;
-            }
-        }
-
-        private IEnumerator FadeInRoutine(float time)
-        {
-            while (_canvasGroup.alpha > 0)
-            {
-                _canvasGroup.alpha -= Time.deltaTime / time;
+                _canvasGroup.alpha = Mathf.MoveTowards(_canvasGroup.alpha, target, Time.deltaTime / time);
                 yield return null;
             }
         }

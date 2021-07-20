@@ -1,4 +1,5 @@
 using System.Collections;
+using RPG.Controllers;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
@@ -21,7 +22,7 @@ namespace RPG.SceneManagement
         [SerializeField] private float fadeOutTime = 0.5f;
         [SerializeField] private float fadeInTime = 1f;
         [SerializeField] private float fadeWaitTime = 0.5f;
-
+        
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.tag != "Player") return;
@@ -41,7 +42,11 @@ namespace RPG.SceneManagement
 
             var fader = FindObjectOfType<Fader>();
 
-            yield return fader.FadeOut(fadeOutTime);
+            //remove control from player so they can't keep moving around while scene is transitioning
+            var player = GameObject.FindWithTag("Player");
+            player.GetComponent<PlayerControlState>().SetEnabled(false);
+
+            yield return fader.FadeOut(fadeOutTime); //what happens if player moves to another portal while a long fade out happens?  (race condition)
 
             //save the current level
             var wrapper = FindObjectOfType<SavingWrapper>();
@@ -49,6 +54,11 @@ namespace RPG.SceneManagement
 
             //SceneManager.LoadScene(sceneToLoad);
             yield return SceneManager.LoadSceneAsync(sceneToLoad); //run this up until its loaded, when finished loading we will continue
+
+            //new player created - remove control from that right now as well
+            //the player was destroyed above when we loaded the new scene so need to find him again
+            player = GameObject.FindWithTag("Player");
+            player.GetComponent<PlayerControlState>().SetEnabled(false);
 
             //load current level
             wrapper.Load();
@@ -58,8 +68,11 @@ namespace RPG.SceneManagement
 
             wrapper.Save();
 
-            yield return new WaitForSeconds(fadeWaitTime);
+            yield return new WaitForSeconds(fadeWaitTime); //player can again move to another portal while we're waiting creating a new issue
             yield return fader.FadeIn(fadeInTime);
+
+            //restore control to player now that we're done
+            player.GetComponent<PlayerControlState>().SetEnabled(true);
 
             Destroy(gameObject); //now lets destroy the portal now that we dont need it anymore
         }

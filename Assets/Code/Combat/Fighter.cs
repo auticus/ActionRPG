@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using RPG.Audio;
 using RPG.Combat;
 using RPG.Character;
 using RPG.Controllers;
@@ -25,6 +26,8 @@ namespace RPG.Combat
         private BaseStats _stats = null;
         private Experience _experience = null;
 
+        private SoundFx _soundFx;
+
         void Start()
         {
             _movement = GetComponent<Movement>();
@@ -33,6 +36,7 @@ namespace RPG.Combat
 
             _stats = GetComponent<BaseStats>();
             _experience = GetComponent<Experience>();
+            _soundFx = GetComponent<SoundFx>();
 
             if (_currentWeapon == null) EquipWeapon(defaultWeapon); //otherwise saving system already did its job and we do nothing
         }
@@ -143,11 +147,22 @@ namespace RPG.Combat
 
             if (_currentWeapon.IsRangedWeapon())
             {
+                var hitSource = _currentWeapon.GetHitSource();
+                Debug.Log($"Firing projectile, my source {hitSource}");
+                if (hitSource == HitSource.Bow)
+                {
+                    _soundFx.Play(SoundFx.SoundSource.RangedShot);
+                }
+                else if (hitSource == HitSource.Fireball)
+                {
+                    _soundFx.Play(SoundFx.SoundSource.FireballShot);
+                }
+
                 _currentWeapon.FireProjectile(rightHandTransform, leftHandTransform, _target, damage);
                 return;
             }
             
-            _target.Hit(damage);
+            _target.Hit(damage, _currentWeapon.GetHitSource());
         }
 
         private void AttackBehavior()
