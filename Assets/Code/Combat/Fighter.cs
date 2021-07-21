@@ -148,7 +148,6 @@ namespace RPG.Combat
             if (_currentWeapon.IsRangedWeapon())
             {
                 var hitSource = _currentWeapon.GetHitSource();
-                Debug.Log($"Firing projectile, my source {hitSource}");
                 if (hitSource == HitSource.Bow)
                 {
                     _soundFx.Play(SoundFx.SoundSource.RangedShot);
